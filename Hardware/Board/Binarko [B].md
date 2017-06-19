@@ -16,7 +16,7 @@
 | 22 | R 330R 0.1W (0603)               | R1-R22  | 311-330HRCT-ND             |
 |  8 | R 470R 0.1W (0603)               | R23-R30 | 311-470HRCT-ND             |
 |  2 | R 1K 0.1W (0603)                 | R31 R32 | 311-1.00KHRCT-ND           |
-|  1 | R 1K5 0.1W (0603)                | R33     | 311-1.50KHRCT-ND           |
+|  3 | R 1K5 0.1W (0603)                | R33-R35 | 311-1.50KHRCT-ND           |
 | 10 | S Tactile SPST-NO (6x6mm)        | S1-S10  | 450-1647-ND                |
 |  1 | U PIC16F15386-I/PT (TQFP-48)     | U1      | PIC16F15386-I/PT-ND        |
 |  1 | U TPS2115APWR (TSSOP-8)          | U2      | 296-16940-1-ND             |
