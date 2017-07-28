@@ -4,24 +4,34 @@
 #include "config.h"
 
 
+#define CHANNEL_ANF0  0b101000
+#define CHANNEL_FVR   0b111110
+#define USE_VREF  true
+#define USE_VDD   false
+
 bool hadInit = false;
 
-void batteryInit() {
+void adcInit() {
     ADFVR1 = 1; ADFVR0 = 0; //A/D Converter Fixed Voltage Reference Peripheral output is 2x (2.048V)
     FVREN = 1; //Fixed Voltage Reference is enabled
     while(!FVRRDY);
 
     ADFM = 1; //Right justified. Six Most Significant bits of ADRESH are set to '0' when the conversion result is loaded.
     ADCS2 = 0; ADCS1 = 1; ADCS0 = 1;//Frc (clock supplied from a dedicated RC oscillator)
-    ADPREF1 = 1; ADPREF0 = 1; //Vref+ is connected to internal fixed voltage reference
         
     hadInit = true;
 }
 
-uint16_t getRawAdc() {
-    if (hadInit == false) { batteryInit(); }
+uint16_t getRawAdc(uint8_t channel, bool useVref) {
+    if (hadInit == false) { adcInit(); }
 
-    CHS5 = 1; CHS4 = 0; CHS3 = 1; CHS2 = 0; CHS1 = 0; CHS0 = 0; //RF0    
+    if (useVref) {
+        ADPREF1 = 1; ADPREF0 = 1; //Vref+ is connected to internal fixed voltage reference
+    } else {
+        ADPREF1 = 0; ADPREF0 = 0; //Vref+ is connected to Vdd
+    }
+    
+    ADCON0 = (channel << 2);
     ADON = 1; //ADC is enabled
     _delay(10); //to discharge holding cap if there was measurement just before (at least 10us)
     
@@ -34,5 +44,10 @@ uint16_t getRawAdc() {
 
 
 uint16_t getBatteryVoltage() {
-    return (getRawAdc() * (uint16_t)5);
+    return (getRawAdc(CHANNEL_ANF0, USE_VREF) * 5);
+}
+
+uint16_t getSupplyVoltage() {
+    uint32_t millivolts = (65536 / getRawAdc(CHANNEL_FVR, USE_VDD) * 2048 / 64);
+    return (uint16_t)millivolts; //https://edeca.net/pages/measuring-pic-vdd-with-no-external-components-using-the-fvr/
 }

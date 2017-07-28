@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include "config.h"
-#include "battery.h"
+#include "voltage.h"
 #include "buttons.h"
 #include "led.h"
 
@@ -14,7 +14,9 @@ void main(void) {
     sampleButtons();
     if (getDisplayInstantButton()) {
         displayMilivolts(getBatteryVoltage());
-        wait_250ms();
+        wait_250ms(); wait_250ms(); wait_250ms(); wait_250ms();
+        displayMilivolts(getSupplyVoltage());
+        wait_250ms(); wait_250ms(); wait_250ms(); wait_250ms();
     }
 
     uint8_t value = 0;
