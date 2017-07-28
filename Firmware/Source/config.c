@@ -56,14 +56,14 @@ void init() {
     WPUC   = 0b11111111;
     WPUD   = 0b11111111;
     WPUE   = 0b11111111;
-    WPUF   = 0b11111111;
+    WPUF   = 0b11111110;
 
     ANSELA = 0b00000000;
     ANSELB = 0b00000000;
     ANSELC = 0b00000000;
     ANSELD = 0b00000000;
     ANSELE = 0b00000000;
-    ANSELF = 0b00000000;
+    ANSELF = 0b00000001;
 }
 
 void clrwdt() {

@@ -7,6 +7,7 @@
       <itemPath>config.h</itemPath>
       <itemPath>buttons.h</itemPath>
       <itemPath>led.h</itemPath>
+      <itemPath>battery.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -19,6 +20,7 @@
       <itemPath>config.c</itemPath>
       <itemPath>buttons.c</itemPath>
       <itemPath>led.c</itemPath>
+      <itemPath>battery.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

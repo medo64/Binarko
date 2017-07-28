@@ -85,3 +85,7 @@ bool getPlusLongButton() {
 bool getDisplayButton() {
     return buttonPressed[9];
 }
+
+bool getDisplayInstantButton() {
+    return !BUTTON_DISPLAY;
+}

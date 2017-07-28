@@ -12,5 +12,6 @@ bool getPlusButton(void);
 bool getPlusLongButton(void);
 bool getDisplayButton(void);
 bool getDisplayHeldButton(void);
+bool getDisplayInstantButton(void);
 
 #endif

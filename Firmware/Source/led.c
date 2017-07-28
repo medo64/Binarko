@@ -146,7 +146,7 @@ void setDigitSegments(uint8_t digit1, uint8_t digit2, uint8_t digit3) {
 }
 
 
-void setDecimalNumber(uint8_t value) {
+void displayDecimalNumber(uint8_t value) {
     uint8_t digit1 = (value / 100);
     uint8_t digit2 = ((value / 10) % 10);
     uint8_t digit3 = (value % 10);
@@ -159,10 +159,22 @@ void setDecimalNumber(uint8_t value) {
     }
 }
 
-void setHexadecimalNumber(uint8_t value) {
+void displayHexadecimalNumber(uint8_t value) {
     uint8_t digit1 = (value >> 4) & 0xF;
     uint8_t digit2 = (value & 0xF);
     setDigitSegments(16, digit1, digit2);
+}
+
+void displayMilivolts(uint16_t value) {
+    if (value <= 9999) {
+        uint8_t digit1 = (value / 1000);
+        uint8_t digit2 = ((value / 100) % 10);
+        uint8_t digit3 = (value / 10) % 10;
+        setDigitSegments(digit1, digit2, digit3);
+    } else {
+        setDigitSegments(0, 255, 255);
+    }
+    SEGMENT_DP1 = true;
 }
 
 void displayOff() {
