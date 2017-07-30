@@ -18,7 +18,38 @@
 |  3 | R 1K5 0.1W (0603)                | R33-R35 | 311-1.50KHRCT-ND           |
 | 10 | S Tactile SPST-NO (6x6mm)        | S1-S10  | 450-1647-ND                |
 |  1 | U PIC16F15386-I/PT (TQFP-48)     | U1      | PIC16F15386-I/PT-ND        |
-|  1 | U TPS2115APWR (TSSOP-8)          | U2      | 296-16940-1-ND             |
+|  1 | U TPS2115A (TSSOP-8)             | U2      | 296-16940-1-ND             |
 |  1 | H Enclosure Hammond 1591BBK      |         | HM115-ND                   |
 |  1 | BT 3xAA                          |         | BC3AAW-ND                  |
 |  2 | P MC 1,5/ 4-ST-3,81              |         | ED2876-ND                  |
+
+
+
+#### Jumpers ####
+
+Jumpers on this board are of SMD variety. To connect them, simply solder between
+the pads.
+
+
+##### F-BAT #####
+
+When this jumper is connected battery will power the device directly without
+going through TPS2115A power switcher. This is to be used only if power switcher
+is not mounted. DO NOT connect this jumper if external power is present. DO NOT
+connect this jumper is F-EXT is connected.
+
+
+##### F-EXT #####
+
+When this jumper is connected the device will use external power without going
+through TPS2115A power switcher. This is to be used only if power switcher is
+not mounted. DO NOT connect this jumper if battery power is present. DO NOT
+connect this jumper is F-BAT is connected.
+
+
+##### UNFUSED #####
+
+When this jumper is connected, power switcher will not limit output current.
+This is useful if more devices have to be daisy chained and their combined
+consumption would go over 500 mA. Not recommended for AA batteries as it will
+drain them really quickly.
