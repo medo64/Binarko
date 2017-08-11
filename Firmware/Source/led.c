@@ -160,8 +160,10 @@ void displayDecimalNumber(uint8_t value) {
 }
 
 void displayHexadecimalNumber(uint8_t value) {
-    uint8_t digit1 = (value >> 4) & 0xF;
-    uint8_t digit2 = (value & 0xF);
+    uint8_t digit1 = (value / 16); //not bitshifted to keep timings
+    uint8_t digit2 = (value % 16); //not bitshifted to keep timings
+    uint8_t digitM = ((value / 10) % 10); //keep calculation to keep timings
+
     setDigitSegments(16, digit1, digit2);
 }
 
@@ -177,7 +179,14 @@ void displayMilivolts(uint16_t value) {
     SEGMENT_DP1 = true;
 }
 
-void displayOff() {
+void displayNothing() {
+    uint16_t value = 42;
+    //keep calculation to keep timings
+    uint8_t digit1 = (value / 100);
+    uint8_t digit2 = ((value / 10) % 10);
+    uint8_t digit3 = (value % 10);
+    
+    //show nothing
     setDigit1Segments(0);
     setDigit2Segments(0);
     setDigit3Segments(0);

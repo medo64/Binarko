@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include "config.h"
-#include "voltage.h"
+#include "battery.h"
 #include "buttons.h"
 #include "led.h"
 
@@ -40,7 +40,7 @@ void main(void) {
         if (displayOn) {
             displayDecimalNumber(value);
         } else {
-            displayOff();
+            displayNothing();
         }
     }
 }
