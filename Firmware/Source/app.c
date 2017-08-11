@@ -13,8 +13,10 @@ void main(void) {
 
     sampleButtons();
     if (getDisplayInstantButton()) {
+        clrwdt();
         displayMilivolts(getBatteryVoltage());
         wait_250ms(); wait_250ms(); wait_250ms(); wait_250ms();
+        clrwdt();
         displayMilivolts(getSupplyVoltage());
         wait_250ms(); wait_250ms(); wait_250ms(); wait_250ms();
     }
@@ -23,6 +25,7 @@ void main(void) {
     bool displayOn = true;
         
     while (true) {
+        clrwdt();
         sampleButtons();
         
         if (getPlusButton() || getPlusLongButton()) {

@@ -17,10 +17,10 @@
 #pragma config PPS1WAY  = OFF
 #pragma config STVREN   = ON
 
-#pragma config WDTCPS   = WDTCPS_31
-#pragma config WDTE     = OFF
+#pragma config WDTCPS   = WDTCPS_11
+#pragma config WDTE     = NSLEEP
 #pragma config WDTCWS   = WDTCWS_7
-#pragma config WDTCCS   = SC
+#pragma config WDTCCS   = LFINTOSC
 
 #pragma config BBSIZE   = BB512
 #pragma config BBEN     = OFF
