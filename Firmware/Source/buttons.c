@@ -16,14 +16,16 @@
 #define BUTTON_PLUS     PORTCbits.RC6
 
 #define MAX_SHORT     5
-#define MAX_LONG     50
-#define MAX_LONGER  200
+#define MAX_LONG    100
+#define MAX_LONGER  250
 
 uint8_t buttonCounter[10];
 bool buttonPressed[10];
 bool buttonPressedLong[10] = { false, false, false, false, false, false, false, false, false, false };
 
-void sampleButtons() {
+bool sampleButtons() {
+    bool anyPressed = false;
+
     bool buttonState[10];
     buttonState[0] = !BUTTON_D1;
     buttonState[1] = !BUTTON_D2;
@@ -39,6 +41,7 @@ void sampleButtons() {
     for (uint8_t i=0; i<10; i++) {
         buttonPressed[i] = false; //all buttons are marked non-active
         if (buttonState[i]) {
+            anyPressed = true;
             if (buttonCounter[i] < MAX_LONGER) { buttonCounter[i]++; } //just count how long has it been pressed
         } else { //check if button has been pressed on release
             if (buttonCounter[i] >= MAX_SHORT) { //check duration
@@ -50,6 +53,8 @@ void sampleButtons() {
             buttonCounter[i] = 0; //reset counter to start from scratch
         }
     }
+
+    return anyPressed;
 }
 
 
@@ -71,7 +76,7 @@ bool getPlusButton() {
     return buttonPressed[8];
 }
 
-bool getPlusLongButton() {
+bool getPlusHeldButton() {
     if (buttonCounter[8] >= MAX_LONG) {
         buttonCounter[8] = 0;
         buttonPressedLong[8] = true;
@@ -84,6 +89,26 @@ bool getPlusLongButton() {
 
 bool getDisplayButton() {
     return buttonPressed[9];
+}
+
+bool getDisplayHeldButton() {
+    if (buttonCounter[9] >= MAX_LONG) {
+        //buttonCounter[9] = 0; //don't reset counter for display to allow even longer press
+        buttonPressedLong[9] = true;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool getDisplayHeldLongButton() {
+    if (buttonCounter[9] >= MAX_LONGER) {
+        buttonCounter[9] = 0;
+        buttonPressedLong[9] = true;
+        return true;
+    } else {
+        return false;
+    }
 }
 
 bool getDisplayInstantButton() {

@@ -5,11 +5,14 @@ Binary teaching board.
 
 #### Usage ####
 
-| Button          | Duration   | Description                                    |
-|:---------------:|:----------:|------------------------------------------------|
-| <1> to <8>      | Short      | Toggles binary digit.                          |
-| <Add>           | Short      | Increases binary number by one.                |
-| <Display>       | Short      | Shows or hides display.                        |
+| Button          | Duration   | Description                                      |
+|:---------------:|:----------:|--------------------------------------------------|
+| <1> to <8>      | Short      | Toggles binary digit.                            |
+| <Add>           | Short      | Increases binary number by one.                  |
+| <Display>       | Short      | Shows or hides display.                          |
+| <Display>       | Long       | Toggles between decimal and hexadecimal display. |
+| <Display>       | Extra      | Puts device to sleep.                            |
+| <Display>       | Extra + 2s | Full reset into diagnosic mode.                  |
 
 
 #### Design ####

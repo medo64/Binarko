@@ -5,6 +5,9 @@
 
 void init();
 void clrwdt();
+void doze();
+void wake();
+
 void wait_10ms();
 void wait_250ms();
 

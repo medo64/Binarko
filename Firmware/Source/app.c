@@ -7,6 +7,14 @@
 #include "led.h"
 
 
+void gotoSleep();
+
+
+uint8_t value = 0;
+bool displayOn = true;
+bool displayDecimal = true;
+
+
 void main(void) {
     init();
     displaySplash();
@@ -20,30 +28,58 @@ void main(void) {
         displayMilivolts(getSupplyVoltage());
         wait_250ms(); wait_250ms(); wait_250ms(); wait_250ms();
     }
-
-    uint8_t value = 0;
-    bool displayOn = true;
         
     while (true) {
         clrwdt();
         sampleButtons();
         
-        if (getPlusButton() || getPlusLongButton()) {
+        if (getPlusButton() || getPlusHeldButton()) {
             value++;
         } else {
             uint8_t buttons = getDigitButtons();
             value ^= buttons;
         }
-        
-        if (getDisplayButton()) {
+
+        if (getDisplayHeldLongButton()) {
+            gotoSleep();
+        } else if (getDisplayHeldButton()) {
+            displayDecimal = !displayDecimal;
+        } else if (getDisplayButton()) {
             displayOn = !displayOn;
         }
         
         setLed(value);
         if (displayOn) {
-            displayDecimalNumber(value);
+            if (displayDecimal) {
+                displayDecimalNumber(value);
+            } else {
+                displayHexadecimalNumber(value);
+            }
         } else {
             displayNothing();
         }
     }
+}
+    
+void gotoSleep() {
+    setLed(0x00);
+    displayOff();
+    wait_250ms(); wait_250ms(); wait_250ms(); wait_250ms();
+
+    clrwdt();
+    while(getDisplayInstantButton());
+
+    displayNothing();
+    doze();
+
+    while(!sampleButtons()) {
+        clrwdt();
+    }
+
+    wake();
+
+    //reset values
+    value = 0;
+    displayOn = true;
+    displayDecimal = true;
 }

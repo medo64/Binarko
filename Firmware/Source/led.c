@@ -192,6 +192,12 @@ void displayNothing() {
     setDigit3Segments(0);
 }
 
+void displayOff() {
+    setDigit1Segments(0b00111111);
+    setDigit2Segments(0b01110001);
+    setDigit3Segments(0b01110001);
+}
+
 void displaySplash() {
     setLed(0x80); setDigit1Segments(0b00110000); setDigit2Segments(0b00000000); setDigit3Segments(0b00000000); wait_10ms();
     setLed(0xC0); setDigit1Segments(0b01111001); setDigit2Segments(0b00000000); setDigit3Segments(0b00000000); wait_10ms();

@@ -5,13 +5,14 @@
 #include <stdint.h>
 
 
-void sampleButtons(void);
+bool sampleButtons(void);
 
 uint8_t getDigitButtons();
 bool getPlusButton(void);
-bool getPlusLongButton(void);
+bool getPlusHeldButton(void);
 bool getDisplayButton(void);
 bool getDisplayHeldButton(void);
+bool getDisplayHeldLongButton(void);
 bool getDisplayInstantButton(void);
 
 #endif

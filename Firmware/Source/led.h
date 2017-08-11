@@ -14,6 +14,7 @@ void displaySplash(void);
 void displayDecimalNumber(uint8_t value);
 void displayMilivolts(uint16_t value);
 void displayHexadecimalNumber(uint8_t value);
+void displayOff(void);
 void displayNothing(void);
 
 #endif

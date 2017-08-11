@@ -70,6 +70,16 @@ void clrwdt() {
     asm("CLRWDT");
 }
 
+void doze() {
+    VREGPM = 1;
+    DOZE0 = 1; DOZE1 = 1; DOZE0 = 1;
+    DOZEN = 1;
+}
+
+void wake() {
+    DOZEN = 0;
+}
+
 void wait_10ms() {
     __delay_ms(10);
 }
