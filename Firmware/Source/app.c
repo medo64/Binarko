@@ -8,6 +8,7 @@
 
 
 void gotoDiagnostics();
+void gotoAutoSleep();
 void gotoSleep();
 
 
@@ -22,10 +23,12 @@ void main(void) {
 
     if (getDisplayInstantButton() && getPlusInstantButton()) { gotoDiagnostics(); }
 
-    
+
+    uint16_t idleCounter = 0;
     while (true) {
         clrwdt();
-        sampleButtons();
+        if (sampleButtons()) { idleCounter = 0; } else { idleCounter++; }
+        if (idleCounter == 12000) { gotoAutoSleep(); idleCounter = 0; } //a bit over 2 minutes before auto-sleep
         
         if (getPlusButton() || getPlusHeldButton()) {
             value++;
@@ -125,14 +128,9 @@ void gotoDiagnostics() {
     }
 }
 
-void gotoSleep() {
+
+void sleep() {
     setLed(0x00);
-    displayOff();
-    wait_250ms(); wait_250ms(); wait_250ms(); wait_250ms();
-
-    clrwdt();
-    while(getDisplayInstantButton());
-
     displayNothing();
     doze();
 
@@ -146,4 +144,25 @@ void gotoSleep() {
     value = 0;
     displayOn = true;
     displayDecimal = true;
+}
+
+void gotoAutoSleep() {
+    clrwdt();
+    displayOff();
+    
+    for (uint16_t i=0; i<5000; i++) { //about 10 seconds
+        clrwdt();
+        if (sampleButtons()) { return; } //cancel sleep since someone touched the button
+    }
+    
+    sleep();
+}
+
+void gotoSleep() {
+    setLed(0x00);
+    displayOff();
+    wait_250ms(); wait_250ms(); wait_250ms(); wait_250ms();
+
+    clrwdt();
+    while(getDisplayInstantButton());
 }
