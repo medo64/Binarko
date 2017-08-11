@@ -9,6 +9,10 @@
 #define USE_VREF  true
 #define USE_VDD   false
 
+#define BATTERY_MILLIVOLTS_MIN  3000
+#define BATTERY_MILLIVOLTS_MAX  4500
+
+
 bool hadInit = false;
 
 void adcInit() {
@@ -50,4 +54,17 @@ uint16_t getBatteryVoltage() {
 uint16_t getSupplyVoltage() {
     uint32_t millivolts = (65536 / getRawAdc(CHANNEL_FVR, USE_VDD) * 2048 / 64);
     return (uint16_t)millivolts; //https://edeca.net/pages/measuring-pic-vdd-with-no-external-components-using-the-fvr/
+}
+
+uint8_t getSupplyVoltageAsPercent() {
+    uint16_t millivolts = getSupplyVoltage();
+    if (millivolts < BATTERY_MILLIVOLTS_MIN) {
+        return 0;
+    } else if (millivolts > BATTERY_MILLIVOLTS_MAX) {
+        return 100;
+    } else {
+        uint16_t percentU = ((millivolts - BATTERY_MILLIVOLTS_MIN) >> 4) * 25;
+        uint16_t percentD = ((BATTERY_MILLIVOLTS_MAX - BATTERY_MILLIVOLTS_MIN) >> 4) / 4;
+        return (uint8_t)(percentU / percentD);
+    }
 }

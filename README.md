@@ -12,7 +12,24 @@ Binary teaching board.
 | <Display>       | Short      | Shows or hides display.                          |
 | <Display>       | Long       | Toggles between decimal and hexadecimal display. |
 | <Display>       | Extra      | Puts device to sleep.                            |
-| <Display>       | Extra + 2s | Full reset into diagnosic mode.                  |
+| <Display>       | Extra + 2s | Full reset.                                      |
+
+
+#### Diagnostic mode ####
+
+To enter diagnostic mode, keep both Display and Plus buttons pressed during
+reset.
+
+| Mode |                                                                       |
+|:----:|-----------------------------------------------------------------------|
+|    1 | Measures power-supply voltage.                                        |
+|    2 | Measures battery voltage or (near) 0.00 if external power used.       |
+|    4 | Displays power-supply voltage in percents.                            |
+|    8 |                                                                       |
+|   16 |                                                                       |
+|   32 | Shows all segments for third digit.                                   |
+|   64 | Shows all segments for second digit.                                  |
+|  128 | Shows all segments for first digit.                                   |
 
 
 #### Design ####

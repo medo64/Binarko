@@ -6,15 +6,16 @@
 
 
 void setLed(uint8_t value);
-//void setDigit1Segments(uint8_t value);
-//void setDigit2Segments(uint8_t value);
-//void setDigit3Segments(uint8_t value);
+void setDigit1Segments(uint8_t value);
+void setDigit2Segments(uint8_t value);
+void setDigit3Segments(uint8_t value);
 
 void displaySplash(void);
 void displayDecimalNumber(uint8_t value);
 void displayMilivolts(uint16_t value);
 void displayHexadecimalNumber(uint8_t value);
 void displayOff(void);
+void displayDot(void);
 void displayNothing(void);
 
 #endif

@@ -70,6 +70,11 @@ void clrwdt() {
     asm("CLRWDT");
 }
 
+void reset() {
+    asm("RESET");
+}
+
+
 void doze() {
     VREGPM = 1;
     DOZE0 = 1; DOZE1 = 1; DOZE0 = 1;
@@ -79,6 +84,7 @@ void doze() {
 void wake() {
     DOZEN = 0;
 }
+
 
 void wait_10ms() {
     __delay_ms(10);

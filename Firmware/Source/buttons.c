@@ -86,6 +86,10 @@ bool getPlusHeldButton() {
     }
 }
 
+bool getPlusInstantButton() {
+    return !BUTTON_PLUS;
+}
+
 
 bool getDisplayButton() {
     return buttonPressed[9];

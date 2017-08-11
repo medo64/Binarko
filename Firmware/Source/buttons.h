@@ -8,8 +8,11 @@
 bool sampleButtons(void);
 
 uint8_t getDigitButtons();
+
 bool getPlusButton(void);
 bool getPlusHeldButton(void);
+bool getPlusInstantButton(void);
+
 bool getDisplayButton(void);
 bool getDisplayHeldButton(void);
 bool getDisplayHeldLongButton(void);
