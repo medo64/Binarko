@@ -23,9 +23,9 @@ reset.
 | Mode |                                                                       |
 |:----:|-----------------------------------------------------------------------|
 |    1 | Measures power-supply voltage.                                        |
-|    2 | Measures battery voltage or (near) 0.00 if external power used.       |
-|    4 | Displays power-supply voltage in percents.                            |
-|    8 | Test timer.                                                           |
+|    2 | Displays power-supply voltage in percents.                            |
+|    4 | Test timer.                                                           |
+|    8 |                                                                       |
 |   16 |                                                                       |
 |   32 | Shows all segments for third digit.                                   |
 |   64 | Shows all segments for second digit.                                  |

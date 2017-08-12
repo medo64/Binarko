@@ -127,18 +127,14 @@ void gotoDiagnostics() {
         setLed(1 << mode);
         switch(mode) {
             case 0: //self-measured supply voltage
-                if (measurementWait == 0) { displayMilivolts(getSupplyVoltage()); }
-                break;
-                
-            case 1: //measure battery voltage
                 if (measurementWait == 0) { displayMilivolts(getBatteryVoltage()); }
                 break;
 
-            case 2: //supply voltage in percents
+            case 1: //supply voltage in percents
                 if (measurementWait == 0) { displayDecimalNumber(getBatteryPercent()); }
                 break;
                 
-            case 3: //test timer
+            case 2: //test timer
                 if (hasElapsed1s()) {
                     secondsCounter++;
                     displayDecimalNumber(secondsCounter);
