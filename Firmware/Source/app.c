@@ -20,7 +20,7 @@ bool displayDecimal = true;
 
 void main(void) {
     init();
-    if (getBatteryPercent() == 0) { deepSleep(); reset();  }
+    if (getBatteryPercent() <= 1) { deepSleep(); reset();  }
 
     displaySplash();
     initTimer();
@@ -29,6 +29,7 @@ void main(void) {
 
     bool anyPressed = false;
     uint8_t idleCounter = 0;
+    uint8_t batteryCounter = 0;
     while (true) {
         clrwdt();
         if (sampleButtons()) { anyPressed = true; }
@@ -40,6 +41,20 @@ void main(void) {
                 idleCounter = 0;
             }
             anyPressed = false;
+            
+            batteryCounter++;
+            if (batteryCounter == 60) {
+                uint8_t batteryPercent = getBatteryPercent();
+                if (batteryPercent == 0) {
+                    reset();
+                } else if (batteryPercent < 10) {
+                    displayBat(); //just flash display a moment
+                    wait_250ms();
+                    if (batteryPercent < 5) { wait_250ms(); }
+                    if (batteryPercent < 3) { wait_250ms(); }
+                }
+                batteryCounter = 0;
+            }
         }
         
         if (getPlusButton() || getPlusHeldButton()) {

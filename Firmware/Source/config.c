@@ -78,6 +78,7 @@ void deepSleep() {
     IDLEN = 0;
     VREGPM = 1;
     asm("SLEEP");
+    asm("NOP");
 }
 
 void doze() {

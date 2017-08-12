@@ -198,6 +198,12 @@ void displayOff() {
     setDigit3Segments(0b01110001);
 }
 
+void displayBat() {
+    setDigit1Segments(0b01111100);
+    setDigit2Segments(0b01110111);
+    setDigit3Segments(0b01111000);
+}
+
 void displayDot() {
     setDigit1Segments(0b10000000);
     setDigit2Segments(0b00000000);
