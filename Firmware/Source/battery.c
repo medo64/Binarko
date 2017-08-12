@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include "config.h"
+#include "battery.h"
 
 
 #define CHANNEL_ANF0  0b101000
@@ -9,8 +10,9 @@
 #define USE_VREF  true
 #define USE_VDD   false
 
-#define BATTERY_MILLIVOLTS_MIN  3000
-#define BATTERY_MILLIVOLTS_MAX  4500
+#define BATTERY_MILLIVOLTS_IGNORE  1000
+#define BATTERY_MILLIVOLTS_MIN     3000
+#define BATTERY_MILLIVOLTS_MAX     4500
 
 
 bool hadInit = false;
@@ -47,18 +49,20 @@ uint16_t getRawAdc(uint8_t channel, bool useVref) {
 }
 
 
-uint16_t getBatteryVoltage() {
-    return (getRawAdc(CHANNEL_ANF0, USE_VREF) * 5);
-}
-
 uint16_t getSupplyVoltage() {
     uint32_t millivolts = (65536 / getRawAdc(CHANNEL_FVR, USE_VDD) * 2048 / 64);
     return (uint16_t)millivolts; //https://edeca.net/pages/measuring-pic-vdd-with-no-external-components-using-the-fvr/
 }
 
-uint8_t getSupplyVoltageAsPercent() {
-    uint16_t millivolts = getSupplyVoltage();
-    if (millivolts < BATTERY_MILLIVOLTS_MIN) {
+uint16_t getBatteryVoltage() {
+    return (getRawAdc(CHANNEL_ANF0, USE_VREF) * 5);
+}
+
+uint8_t getBatteryPercent() {
+    uint16_t millivolts = getBatteryVoltage();
+    if (millivolts < BATTERY_MILLIVOLTS_IGNORE) {
+        return 200; //external power supply is ignored on measures
+    } else if (millivolts < BATTERY_MILLIVOLTS_MIN) {
         return 0;
     } else if (millivolts > BATTERY_MILLIVOLTS_MAX) {
         return 100;

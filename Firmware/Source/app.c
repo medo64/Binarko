@@ -19,10 +19,11 @@ bool displayDecimal = true;
 
 void main(void) {
     init();
+    if (getBatteryPercent() == 0) { deepSleep(); reset();  }
+
     displaySplash();
 
     if (getDisplayInstantButton() && getPlusInstantButton()) { gotoDiagnostics(); }
-
 
     uint16_t idleCounter = 0;
     while (true) {
@@ -104,7 +105,7 @@ void gotoDiagnostics() {
                 break;
 
             case 2: //supply voltage in percents
-                if (measurementWait == 0) { displayDecimalNumber(getSupplyVoltageAsPercent()); }
+                if (measurementWait == 0) { displayDecimalNumber(getBatteryPercent()); }
                 break;
 
             case 5: //show third digit

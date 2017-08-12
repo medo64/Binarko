@@ -6,6 +6,8 @@
 void init();
 void clrwdt();
 void reset();
+
+void deepSleep(void);
 void doze();
 void wake();
 

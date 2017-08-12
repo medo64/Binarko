@@ -74,9 +74,13 @@ void reset() {
     asm("RESET");
 }
 
+void deepSleep() {
+    IDLEN = 0;
+    VREGPM = 1;
+    asm("SLEEP");
+}
 
 void doze() {
-    VREGPM = 1;
     DOZE0 = 1; DOZE1 = 1; DOZE0 = 1;
     DOZEN = 1;
 }
