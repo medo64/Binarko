@@ -59,7 +59,7 @@ uint16_t getBatteryVoltage() {
 }
 
 uint8_t getBatteryPercent() {
-    uint16_t millivolts = getBatteryVoltage();
+    uint16_t millivolts = getSupplyVoltage();
     if (millivolts < BATTERY_MILLIVOLTS_IGNORE) {
         return 200; //external power supply is ignored on measures
     } else if (millivolts < BATTERY_MILLIVOLTS_MIN) {

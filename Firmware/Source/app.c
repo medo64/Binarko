@@ -20,7 +20,7 @@ bool displayDecimal = true;
 
 void main(void) {
     init();
-    if (getBatteryPercent() <= 1) { deepSleep(); reset();  }
+    if (getBatteryPercent() <= 3) { deepSleep(); reset();  }
 
     displaySplash();
     initTimer();
@@ -50,8 +50,8 @@ void main(void) {
                 } else if (batteryPercent < 10) {
                     displayBat(); //just flash display a moment
                     wait_250ms();
-                    if (batteryPercent < 5) { wait_250ms(); }
-                    if (batteryPercent < 3) { wait_250ms(); }
+                    if (batteryPercent <= 5) { wait_250ms(); }
+                    if (batteryPercent <= 3) { wait_250ms(); }
                 }
                 batteryCounter = 0;
             }
