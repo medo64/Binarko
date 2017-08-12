@@ -6,9 +6,9 @@
                    projectFiles="true">
       <itemPath>config.h</itemPath>
       <itemPath>buttons.h</itemPath>
-      <itemPath>led.h</itemPath>
       <itemPath>battery.h</itemPath>
       <itemPath>timer.h</itemPath>
+      <itemPath>display.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -20,9 +20,9 @@
       <itemPath>app.c</itemPath>
       <itemPath>config.c</itemPath>
       <itemPath>buttons.c</itemPath>
-      <itemPath>led.c</itemPath>
       <itemPath>battery.c</itemPath>
       <itemPath>timer.c</itemPath>
+      <itemPath>display.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -30,6 +30,9 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="default" type="2">

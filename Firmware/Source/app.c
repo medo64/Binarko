@@ -4,7 +4,7 @@
 #include "config.h"
 #include "battery.h"
 #include "buttons.h"
-#include "led.h"
+#include "display.h"
 #include "timer.h"
 
 
