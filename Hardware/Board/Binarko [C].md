@@ -14,8 +14,7 @@
 |  1 | DS 3d 7-seg CC 14.2mm (DIP-28)      | DS9     | 754-1658-5-ND           |
 |  2 | J JST S3B-XH-A (3w)                 | J1-J2   | 455-2250-ND             |
 | 22 | R 300R 0.1W (0603)                  | R1-R22  | 311-300HRCT-ND          |
-| 10 | R 1K 0.1W (0603)                    | R23-R32 | 311-1.00KHRCT-ND        |
-|  3 | R 1K5 0.1W (0603)                   | R33-R35 | 311-1.50KHRCT-ND        |
+| 12 | R 1K 0.1W (0603)                    | R23-R34 | 311-1.00KHRCT-ND        |
 | 10 | S Tactile SPST-NO (6x6mm)           | S1-S10  | 450-1647-ND             |
 |  1 | U PIC16F15386-I/PT (TQFP-48)        | U1      | PIC16F15386-I/PT-ND     |
 |  1 | U TPS2115A (TSSOP-8)                | U2      | 296-16940-1-ND          |
@@ -52,5 +51,9 @@ connect this jumper is F-BAT is connected.
 
 When this jumper is connected, power switcher will not limit output current.
 This is useful if more devices have to be daisy chained and their combined
-consumption would go over 500 mA. Not recommended for AA batteries as it will
+consumption would go over 250 mA. Not recommended for AA batteries as it will
 drain them really quickly.
+
+If daisy chaining is required, you are better off leaving current limit alone
+and using input connector for power source as it is connected directly to the
+output connector.
