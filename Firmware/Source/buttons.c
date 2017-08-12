@@ -96,7 +96,7 @@ bool getDisplayButton() {
 }
 
 bool getDisplayHeldButton() {
-    if (buttonCounter[9] >= MAX_LONG) {
+    if ((buttonCounter[9] >= MAX_LONG) && (buttonPressedLong[9] == false)) {
         //buttonCounter[9] = 0; //don't reset counter for display to allow even longer press
         buttonPressedLong[9] = true;
         return true;

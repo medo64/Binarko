@@ -52,6 +52,7 @@ void main(void) {
         if (getDisplayHeldLongButton()) {
             gotoSleep();
         } else if (getDisplayHeldButton()) {
+            displayOn = true;
             displayDecimal = !displayDecimal;
         } else if (getDisplayButton()) {
             displayOn = !displayOn;
