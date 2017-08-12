@@ -97,3 +97,7 @@ void wait_10ms() {
 void wait_250ms() {
     __delay_ms(250);
 }
+
+void wait_1000ms() {
+    __delay_ms(1000);
+}

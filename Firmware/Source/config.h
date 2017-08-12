@@ -13,5 +13,6 @@ void wake();
 
 void wait_10ms();
 void wait_250ms();
+void wait_1000ms();
 
 #endif

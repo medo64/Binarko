@@ -5,6 +5,7 @@
 #include "battery.h"
 #include "buttons.h"
 #include "led.h"
+#include "timer.h"
 
 
 void gotoDiagnostics();
@@ -22,14 +23,24 @@ void main(void) {
     if (getBatteryPercent() == 0) { deepSleep(); reset();  }
 
     displaySplash();
+    initTimer();
 
     if (getDisplayInstantButton() && getPlusInstantButton()) { gotoDiagnostics(); }
 
-    uint16_t idleCounter = 0;
+    bool anyPressed = false;
+    uint8_t idleCounter = 0;
     while (true) {
         clrwdt();
-        if (sampleButtons()) { idleCounter = 0; } else { idleCounter++; }
-        if (idleCounter == 12000) { gotoAutoSleep(); idleCounter = 0; } //a bit over 2 minutes before auto-sleep
+        if (sampleButtons()) { anyPressed = true; }
+        
+        if (hasElapsed1s()) { //house keeping every 1s
+            if (!anyPressed) { idleCounter++; } else { idleCounter = 0;}
+            if (idleCounter == 120) { //auto-sleep in 2 minutes
+                gotoAutoSleep();
+                idleCounter = 0;
+            }
+            anyPressed = false;
+        }
         
         if (getPlusButton() || getPlusHeldButton()) {
             value++;
@@ -66,6 +77,7 @@ void gotoDiagnostics() {
 
     uint8_t measurementWait = 0;
     uint8_t mode = 0;
+    uint8_t secondsCounter = 0;
     while(true) {
         clrwdt();
         sampleButtons();
@@ -77,6 +89,7 @@ void gotoDiagnostics() {
         } else if (getPlusButton() || getPlusHeldButton()) {
             mode = ++mode % 8;
             measurementWait = 0;
+            if (mode == 3) { secondsCounter = 0; resetTimer(); displayDecimalNumber(0); } //reset timer
         } else { //detect only a single button press
             uint8_t buttons = getDigitButtons();
             if (buttons > 0) {
@@ -91,6 +104,7 @@ void gotoDiagnostics() {
                     case 0b10000000: mode = 7; break;
                 }
                 measurementWait = 0;
+                if (mode == 3) { secondsCounter = 0; resetTimer(); displayDecimalNumber(0); } //reset timer
             }
         }
         
@@ -106,6 +120,13 @@ void gotoDiagnostics() {
 
             case 2: //supply voltage in percents
                 if (measurementWait == 0) { displayDecimalNumber(getBatteryPercent()); }
+                break;
+                
+            case 3: //test timer
+                if (hasElapsed1s()) {
+                    secondsCounter++;
+                    displayDecimalNumber(secondsCounter);
+                }
                 break;
 
             case 5: //show third digit
@@ -133,12 +154,9 @@ void gotoDiagnostics() {
 void sleep() {
     setLed(0x00);
     displayNothing();
+
     doze();
-
-    while(!sampleButtons()) {
-        clrwdt();
-    }
-
+    while(!sampleButtons()) { clrwdt(); }
     wake();
 
     //reset values
@@ -148,11 +166,12 @@ void sleep() {
 }
 
 void gotoAutoSleep() {
-    clrwdt();
     displayOff();
     
-    for (uint16_t i=0; i<5000; i++) { //about 10 seconds
+    uint8_t idleCounter = 0;
+    while (idleCounter < 10) { //about 10 seconds
         clrwdt();
+        if (hasElapsed1s()) { idleCounter++; }
         if (sampleButtons()) { return; } //cancel sleep since someone touched the button
     }
     
@@ -162,7 +181,7 @@ void gotoAutoSleep() {
 void gotoSleep() {
     setLed(0x00);
     displayOff();
-    wait_250ms(); wait_250ms(); wait_250ms(); wait_250ms();
+    wait_1000ms();
 
     clrwdt();
     while(getDisplayInstantButton());
