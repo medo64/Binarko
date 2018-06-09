@@ -20,16 +20,16 @@ Binary teaching board.
 To enter diagnostic mode, keep both Display and Plus buttons pressed during
 reset.
 
-| Mode |                                                                       |
-|:----:|-----------------------------------------------------------------------|
-|    1 | Measures power-supply voltage.                                        |
-|    2 | Displays power-supply voltage in percents.                            |
-|    4 | Test timer.                                                           |
-|    8 |                                                                       |
-|   16 |                                                                       |
-|   32 | Shows all segments for third digit.                                   |
-|   64 | Shows all segments for second digit.                                  |
-|  128 | Shows all segments for first digit.                                   |
+| Mode |                                                                          |
+|:----:|--------------------------------------------------------------------------|
+|    1 | Measures power-supply voltage.                                           |
+|    2 | Displays power-supply voltage in percents                                |
+|    4 | Test UART receive and timer.                                             |
+|    8 | Test UART transmit.                                                      |
+|   16 |                                                                          |
+|   32 | Shows all segments for third digit.                                      |
+|   64 | Shows all segments for second digit.                                     |
+|  128 | Shows all segments for first digit.                                      |
 
 
 #### Design ####
@@ -41,4 +41,4 @@ out.
 
 ---
 
-*Josip Medved, [www.medo64.com](https://www.medo64.com/)*
+* Josip Medved, [www.medo64.com](https://www.medo64.com/) *
